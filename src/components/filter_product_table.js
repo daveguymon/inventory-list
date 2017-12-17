@@ -15,17 +15,46 @@ const PRODUCTS = [
 
 //As the parent-most component of child components who will share data, this component will house state.
 export default class FilterProductTable extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      filterText: '',
+      inStockOnly: false
+    }
 
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+
+    this.handleInStockChange = this.handleInStockChange.bind(this);
+  }
+
+  //These two handle functions are created in this top-level component and bound to this scope. They are then passed to child components, which will use additional functions to track data changes and then pass them upwards to change this component's state properties.
+  handleFilterTextChange(filterText) {
+      this.setState({ filterText })
+  }
+
+  handleInStockChange(inStockOnly) {
+    this.setState({ inStockOnly });
+  }
   //Render is a method that returns JSX wrapped in a single element. This is where the UI is rendered.
   render() {
     return (
-      <div>
+      <div className="filter-product-table">
       {/*Instance of SearchBar component*/}
-        <SearchBar />
+      {/*Handle functions being passed as props to child component*/}
+        <SearchBar
+          onFilterTextChange={this.handleFilterTextChange}
+          onInStockChange={this.handleInStockChange}
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+        />
         {/*
           Instance of ProductTable component, through which the PRODUCTS array will be passed as the product prop.
         */}
-        <ProductTable product={PRODUCTS}/>
+        <ProductTable
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+          product={PRODUCTS}
+        />
       </div>
     )
   }

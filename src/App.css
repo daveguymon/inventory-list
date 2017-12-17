@@ -26,3 +26,27 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+body {
+  padding: 5px;
+}
+
+.app-container {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.filter-product-table {
+  width: 40%;
+}
+
+.text-input {
+  width: 80%;
+  height: 24px;
+}
+
+tr {
+  text-align: left;
+}
